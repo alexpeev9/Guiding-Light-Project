@@ -10,8 +10,10 @@ import { AppComponent } from './app.component';
 import { LocationCreateComponent } from './components/location/location-create/location-create.component';
 import { LocationDetailsComponent } from './components/location/location-details/location-details.component';
 import { LocationsListComponent } from './components/location/locations-list/locations-list.component';
+import { LocationUpdateComponent } from './components/location/location-update/location-update.component';
 
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
+import { NavigationComponent } from './components/shared/navigation/navigation.component';
 
 const mapConfig: YaConfig = {
   apikey: environment.yandexKey,
@@ -23,7 +25,9 @@ const mapConfig: YaConfig = {
     AppComponent,
     LocationCreateComponent,
     LocationDetailsComponent,
-    LocationsListComponent
+    LocationsListComponent,
+    LocationUpdateComponent,
+    NavigationComponent
     ],
   imports: [
     BrowserModule,

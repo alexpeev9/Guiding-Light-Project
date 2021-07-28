@@ -14,8 +14,9 @@ import { CrudService } from 'src/app/services/crud.service';
   providedIn: 'root'
 })
 export class LocationCreateComponent implements OnInit {
-  @Input()  coordsX!: string;
-  @Input()  coordsY!: string;
+  
+  @Input()  coordsX!: number;
+  @Input()  coordsY!: number;
 
   @Output()
   get coordsX1() {
@@ -35,10 +36,10 @@ export class LocationCreateComponent implements OnInit {
 
   ngOnInit():void{}
   saveLocation(): void {
-    this.crudService.create(this.location).then(() => {
-      console.log('Created new item successfully!');
-      this.submitted = true;
-    });
+      this.crudService.create(this.location).then(() => {
+        console.log('Created new item successfully!');
+        this.submitted = true;
+      });
   }
 
   mouseClick(event: YaReadyEvent<ymaps.Map>):void{
@@ -46,7 +47,6 @@ export class LocationCreateComponent implements OnInit {
 
     map.events.add('click',(e)=>{
       var coords = e.get('coords');
-      
       this.location.coordX = this.coordsX = coords[0];
       this.location.coordY = this.coordsY = coords[1];
       this.cdr.detectChanges()
