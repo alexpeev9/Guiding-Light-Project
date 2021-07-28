@@ -14,6 +14,9 @@ import { LocationUpdateComponent } from './components/location/location-update/l
 
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 import { NavigationComponent } from './components/shared/navigation/navigation.component';
+import { HomeComponent } from './components/home/home.component';
+import { ErrorNotFoundComponent } from './components/shared/errors/error-not-found/error-not-found.component';
+import { ErrorInternalServerComponent } from './components/shared/errors/error-internal-server/error-internal-server.component';
 
 const mapConfig: YaConfig = {
   apikey: environment.yandexKey,
@@ -27,7 +30,10 @@ const mapConfig: YaConfig = {
     LocationDetailsComponent,
     LocationsListComponent,
     LocationUpdateComponent,
-    NavigationComponent
+    NavigationComponent,
+    HomeComponent,
+    ErrorNotFoundComponent,
+    ErrorInternalServerComponent
     ],
   imports: [
     BrowserModule,

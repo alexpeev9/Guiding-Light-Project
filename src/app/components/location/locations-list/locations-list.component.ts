@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map } from 'rxjs/operators';
-import { YaReadyEvent } from 'angular8-yandex-maps';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Location } from 'src/app/models/location.model';
 import { CrudService } from 'src/app/services/crud.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-locations-list',
@@ -14,26 +14,19 @@ import { CrudService } from 'src/app/services/crud.service';
 })
 export class LocationsListComponent implements OnInit {
 
+  public errorMessage: string = '';
   locations?: Location[];
-  currentLocation?: Location;
-  currentIndex = -1;
-  title = '';
   crudService: CrudService<Location>;
-  constructor(private db: AngularFireDatabase,private router: Router) {
-    this.crudService = new CrudService<Location>("locations",db);
-   }
+
+  constructor(private db: AngularFireDatabase, private router: Router, private errorHandler: ErrorHandlerService) {
+    this.crudService = new CrudService<Location>("locations", db);
+  }
 
   ngOnInit(): void {
-    this.retrievelocations();
+    this.retrieveLocations();
   }
 
-  refreshList(): void {
-    this.currentLocation = undefined;
-    this.currentIndex = -1;
-    this.retrievelocations();
-  }
-
-  retrievelocations(): void {
+  retrieveLocations(): void {
     this.crudService.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -42,23 +35,18 @@ export class LocationsListComponent implements OnInit {
       )
     ).subscribe(data => {
       this.locations = data;
-    });
+    },
+      (error) => {
+        this.errorHandler.handleError(error);
+        this.errorMessage = this.errorHandler.errorMessage;
+      });
   }
-
-  setActiveLocation(location: Location, index: number): void {
-    this.currentLocation = location;
-    this.currentIndex = index;
+  public redirectToUpdatePage = (id: any) => {
+    const updateUrl: string = `/location-update/${id}`;
+    this.router.navigate([updateUrl]);
   }
-
-  removeAllLocations(): void {
-    this.crudService.deleteAll()
-      .then(() => this.refreshList())
-      .catch(err => console.log(err));
+  public redirectToDetailsPage = (id: any) => {
+    const detailsURL: string = `/location-details/${id}`;
+    this.router.navigate([detailsURL]);
   }
-
-  public redirectToUpdatePage = (id: any) => { 
-    const updateUrl: string = `/location-update/${id}`; 
-    this.router.navigate([updateUrl]); 
-}
-
 }
