@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
@@ -36,7 +36,8 @@ const mapConfig: YaConfig = {
   providers: [],
   bootstrap: [AppComponent],
   schemas: [
-        CUSTOM_ELEMENTS_SCHEMA, // To remove errors from yandex-map in vs code
+        CUSTOM_ELEMENTS_SCHEMA, // Both not working 
+        NO_ERRORS_SCHEMA
       ]
 })
 export class AppModule { }

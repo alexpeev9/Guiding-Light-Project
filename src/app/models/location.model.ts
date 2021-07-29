@@ -4,5 +4,6 @@ export class Location {
     description?: string;
     address?: string;
     picture?: string;
-    coords?: string;
+    coordX?: string;
+    coordY?: string;
 }

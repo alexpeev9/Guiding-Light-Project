@@ -18,23 +18,35 @@
           class="form-control"
           id="description"
           required
-          [(ngModel)]="location.description"
+          [(ngModel)]="location.description" 
           name="description"
         />
       </div>
       
-      <div class="form-group">
-        <label for="coords">Coords</label>
+      <!-- <div class="form-group">
+        <label for="coordX">coordX</label>
         <input
           type="text"
           class="form-control"
-          id="coords"
+          id="coordX"
           required
-          [(ngModel)]="location.coords"
-          name="coords"
+          [(ngModel)]="location.coordX"
+          name="coordX"
         />
       </div>
 
+      <div class="form-group">
+        <label for="coordY">coordY</label>
+        <input
+          type="text"
+          class="form-control"
+          id="coordY"
+          required
+          [(ngModel)]="location.coordY"
+          name="coordY"
+        />
+      </div> -->
+      
       <div class="form-group">
         <label for="coords">Address</label>
         <input
@@ -58,17 +70,22 @@
           name="picture"
         />
       </div>
+
+      <p class="my-2">Coordinates: {{coordsX}} {{coordsY}}</p>
+      <div class="container" style="width:100%;height:300px">
+      <ya-map 
+      [center]="[43.07744986756709,25.616192654179123]" 
+      [zoom]="15" 
+      (ready)="mouseClick($event)">
+        <ya-placemark 
+        [geometry]="[[(coordsX)],[(coordsY)]]">
+      </ya-placemark>
+      </ya-map>
+      </div>
       
       <button (click)="saveLocation()" class="btn btn-success">Submit</button>
     </div>
 
-    <div class="container" style="width:300px;height:300px">
-      <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
-        <ya-placemark [geometry]="[55.751952, 37.600739]"></ya-placemark>
-      </ya-map>
-    </div>
-    
-    
     <div *ngIf="submitted">
       <h4>You submitted successfully!</h4>
       <button class="btn btn-success" (click)="newLocation()">Add</button>
