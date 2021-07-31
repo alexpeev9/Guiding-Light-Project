@@ -12,12 +12,15 @@ import { LocationCreateComponent } from './components/location/location-create/l
 import { LocationDetailsComponent } from './components/location/location-details/location-details.component';
 import { LocationsListComponent } from './components/location/locations-list/locations-list.component';
 import { LocationUpdateComponent } from './components/location/location-update/location-update.component';
+import { AuthService } from "./services/auth.service";
 
 import { AngularYandexMapsModule, YaConfig } from 'angular8-yandex-maps';
 import { NavigationComponent } from './components/shared/navigation/navigation.component';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorNotFoundComponent } from './components/shared/errors/error-not-found/error-not-found.component';
 import { ErrorInternalServerComponent } from './components/shared/errors/error-internal-server/error-internal-server.component';
+import { LoginComponent } from './components/authentication/login/login.component';
+import { RegisterComponent } from './components/authentication/register/register.component';
 
 const mapConfig: YaConfig = {
   apikey: environment.yandexKey,
@@ -34,7 +37,9 @@ const mapConfig: YaConfig = {
     NavigationComponent,
     HomeComponent,
     ErrorNotFoundComponent,
-    ErrorInternalServerComponent
+    ErrorInternalServerComponent,
+    LoginComponent,
+    RegisterComponent
     ],
   imports: [
     BrowserModule,
@@ -45,7 +50,7 @@ const mapConfig: YaConfig = {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
   schemas: [
         CUSTOM_ELEMENTS_SCHEMA, // Both not working 

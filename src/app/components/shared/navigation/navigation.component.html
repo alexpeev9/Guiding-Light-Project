@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Account-Owner Home</a>
+    <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="active">Account-Owner Home</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -12,6 +12,15 @@
         </li>
         <li class="nav-item px-3">
           <a class="nav-link" [routerLink]="['/location-create']" routerLinkActive="active">Locaiton Create</a>
+        </li>
+        <li class="nav-item px-3" *ngIf="!authService.userData">
+          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item px-3" *ngIf="!authService.userData" >
+          <a class="nav-link" [routerLink]="['/register']" routerLinkActive="active">Register</a>
+        </li>
+        <li class="nav-item px-3" *ngIf="authService.userData as user">
+          <a class="nav-link" [routerLink]="['/home']" (click)="authService.SignOut()">Logout</a>
         </li>
       </ul>
     </div>
