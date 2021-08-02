@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
-  { path: 'location-create', component: LocationCreateComponent, canActivate: [AuthGuard] },
+  { path: 'location-create',component: LocationCreateComponent },
+  // , component: LocationCreateComponent, canActivate: [AuthGuard]
   { path: 'locations', component: LocationsListComponent },
   { path: 'location-update/:id', component: LocationUpdateComponent, canActivate: [AuthGuard] },
   { path: 'location-details/:id', component: LocationDetailsComponent },
