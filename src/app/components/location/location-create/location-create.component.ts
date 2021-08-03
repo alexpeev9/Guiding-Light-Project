@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Injectable, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injectable, Input, OnInit, Output } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { YaReadyEvent } from 'angular8-yandex-maps';
 
@@ -7,7 +7,8 @@ import { CrudService } from 'src/app/services/crud.service';
 @Component({
   selector: 'app-location-create',
   templateUrl: './location-create.component.html',
-  styleUrls: ['./location-create.component.css']
+  styleUrls: ['./location-create.component.css'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 @Injectable({

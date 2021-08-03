@@ -75,3 +75,6 @@ typings/
 # FuseBox cache
 .fusebox/
 environment.ts
+src/environments/environment.prod.ts
+src/environments/environment.prod.ts
+src/environments/environment.prod.ts
