@@ -10,8 +10,7 @@ import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-location-details',
-  templateUrl: './location-details.component.html',
-  styleUrls: ['./location-details.component.css']
+  templateUrl: './location-details.component.html'
 })
 export class LocationDetailsComponent implements OnInit, OnChanges {
   

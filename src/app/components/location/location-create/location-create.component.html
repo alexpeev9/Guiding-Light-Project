@@ -1,39 +1,54 @@
+<!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': form.username.errors }" />
+      <div *ngIf="form.username.errors" class="invalid-feedback">
+          <div *ngIf="form.username.errors.required">Username is required</div>
+      </div>
+  </div> -->
 <div class="justify-content-center d-flex">
   <div class="submit-form w-50 align-items-center">
-    <form *ngIf="!submitted" #locationForm="ngForm">
+    <form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
       
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" required [(ngModel)]="location.title" name="title"/>
+        <input type="text" formControlName="title" class="form-control" id="title" [ngClass]="{ 'is-invalid': form.title.errors }"/>
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <input class="form-control" id="description" required [(ngModel)]="location.description" name="description" />
+        <input type="text" formControlName="description" class="form-control" id="description" [ngClass]="{ 'is-invalid': form.description.errors }" />
       </div>
 
       <div class="form-group">
         <label for="address">Address</label>
-        <input type="text" class="form-control" id="address" required [(ngModel)]="location.address" name="address"/>
+        <input type="text" formControlName="address" class="form-control" id="address" [ngClass]="{ 'is-invalid': form.address.errors }"/>
       </div>
 
       <div class="form-group">
         <label for="picture">Picture URL</label>
-        <input type="text" class="form-control" id="picture" required [(ngModel)]="location.picture" name="picture" />
+        <input type="text" formControlName="picture" class="form-control" id="picture" [ngClass]="{ 'is-invalid': form.picture.errors }" />
       </div>
 
-      <p class="my-2">Coordinates: {{coordsX}} {{coordsY}}</p>
-      <div class="container" style="width:100%;height:300px">
+      <p class="py-2">Coordinates: {{coordsX}} {{coordsY}}</p>
+      <div style="width:100%;height:300px">
         <ya-map [center]="[43.07744986756709,25.616192654179123]" [zoom]="15" (ready)="mouseClick($event)">
           <ya-placemark [geometry]="[[(coordsX)],[(coordsY)]]">
           </ya-placemark>
         </ya-map>
       </div>
 
-      <h5 class="text-danger pt-4">{{validattionMessage}}</h5>
-      <button (click)="saveLocation()" [disabled]="locationForm.form.invalid" class="btn btn-success justify-content-center w-50 my-4 border-0">Submit</button>
+      <h5 class="text-danger pt-4 ">{{validattionMessage}}</h5>
+      <div class="form-group">
+        <button class="btn btn-primary" [disabled]="locationForm.invalid">
+            <span></span>
+            Create-Location
+        </button>
+        <!-- <h5 class="text-danger p-3">{{errorMsg}}</h5> -->
+    </div>
+      <!-- <button (click)="saveLocation()" [disabled]="locationForm.form.invalid" class="btn btn-success justify-content-center w-50 my-4 border-0">Submit</button> -->
     </form>
-    <div *ngIf="submitted">
+    <div>
       <h4>You submitted successfully!</h4>
     </div>
   </div>

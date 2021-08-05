@@ -6,4 +6,5 @@ export class Location {
     picture?: string;
     coordX?: number;
     coordY?: number;
+    author?: string;
 }
