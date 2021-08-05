@@ -1,14 +1,6 @@
-<!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': form.username.errors }" />
-      <div *ngIf="form.username.errors" class="invalid-feedback">
-          <div *ngIf="form.username.errors.required">Username is required</div>
-      </div>
-  </div> -->
 <div class="justify-content-center d-flex">
   <div class="submit-form w-50 align-items-center">
-    <form [formGroup]="locationForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="locationForm" (ngSubmit)="onSubmit()" *ngIf="!submitted">
       
       <div class="form-group">
         <label for="title">Title</label>
@@ -44,12 +36,10 @@
             <span></span>
             Create-Location
         </button>
-        <!-- <h5 class="text-danger p-3">{{errorMsg}}</h5> -->
     </div>
-      <!-- <button (click)="saveLocation()" [disabled]="locationForm.form.invalid" class="btn btn-success justify-content-center w-50 my-4 border-0">Submit</button> -->
     </form>
-    <div>
-      <h4>You submitted successfully!</h4>
+    <div *ngIf="submitted">
+      <h4>Congratulations! Your location was created successfully!</h4>
     </div>
   </div>
 </div>

@@ -17,8 +17,9 @@ const routes: Routes = [
 
   { path: 'location-create',component: LocationCreateComponent },
   // , component: LocationCreateComponent, canActivate: [AuthGuard]
+  // { path: 'location-update/:id', component: LocationUpdateComponent, canActivate: [AuthGuard] },
   { path: 'locations', component: LocationsListComponent },
-  { path: 'location-update/:id', component: LocationUpdateComponent, canActivate: [AuthGuard] },
+  { path: 'location-update/:id', component: LocationUpdateComponent},
   { path: 'location-details/:id', component: LocationDetailsComponent },
 
   { path: 'login', component: LoginComponent},
