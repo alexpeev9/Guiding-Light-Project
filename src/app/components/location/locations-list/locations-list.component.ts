@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { map } from 'rxjs/operators';
-
+import { Router } from '@angular/router';
 import { Location } from 'src/app/models/location.model';
 import { CrudService } from 'src/app/services/crud.service';
-import { ErrorHandlerService } from 'src/app/services/error-handler.service';
-import { RedirectService } from 'src/app/services/redirect.service';
+import { LocationsService } from 'src/app/services/location/locations.service';
 
 @Component({
   selector: 'app-locations-list',
@@ -13,37 +11,26 @@ import { RedirectService } from 'src/app/services/redirect.service';
 })
 export class LocationsListComponent implements OnInit {
 
-  public errorMessage: string = '';
-  locations?: Location[];
+  locationBindingService! : LocationsService;
   crudService!: CrudService<Location>;
+  locations!: any;
 
-  constructor(private db: AngularFireDatabase,private redirectService: RedirectService,private errorHandler: ErrorHandlerService) {
+  constructor(private db: AngularFireDatabase,private router: Router) {
   }
   
   ngOnInit(): void {
     this.crudService = new CrudService<Location>("locations", this.db);
-    this.retrieveLocations();
+    this.locationBindingService = new LocationsService(this.db);
+    this.locationBindingService.retrieveLocations();
+    this.locations = this.locationBindingService.locations;
   }
 
-  retrieveLocations(): void {
-    this.crudService.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.key, ...c.payload.val() })
-        )
-      )
-    ).subscribe(data => {
-      this.locations = data;
-    },
-      (error) => {
-        this.errorHandler.handleError(error);
-        this.errorMessage = this.errorHandler.errorMessage;
-      });
-  }
   public redirectToUpdatePage = (id: any) => {
-     this.redirectService.redirectToUpdatePage(id);
+    const updateUrl: string = `/location-update/${id}`;
+    this.router.navigate([updateUrl]);
   }
   public redirectToDetailsPage = (id: any) => {
-    this.redirectService.redirectToDetailsPage(id);
+    const detailsURL: string = `/location-details/${id}`;
+    this.router.navigate([detailsURL]);
   }
 }

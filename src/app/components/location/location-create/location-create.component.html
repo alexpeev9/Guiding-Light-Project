@@ -19,7 +19,10 @@
 
       <div class="form-group">
         <label for="picture">Picture URL</label>
-        <input type="text" formControlName="picture" class="form-control" id="picture" [ngClass]="{ 'is-invalid': form.picture.errors }" />
+        <input type="text" formControlName="picture" class="form-control" id="picture" (ngModelChange)="valuechange($event)" [ngClass]="{ 'is-invalid': form.picture.errors }" />
+        <div *ngIf="!form.picture.errors">
+          <td><img style="width:500px;height:500px" [src]="this.locationBindingService.location.picture"></td>
+        </div>
       </div>
 
       <p class="py-2">Coordinates: {{coordsX}} {{coordsY}}</p>

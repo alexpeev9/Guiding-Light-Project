@@ -9,24 +9,63 @@ import { ErrorInternalServerComponent } from './components/shared/errors/error-i
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
-import { AuthGuard } from "./utilities/auth.guard";
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
-  { path: 'location-create',component: LocationCreateComponent },
-  // , component: LocationCreateComponent, canActivate: [AuthGuard]
-  // { path: 'location-update/:id', component: LocationUpdateComponent, canActivate: [AuthGuard] },
-  { path: 'locations', component: LocationsListComponent },
-  { path: 'location-update/:id', component: LocationUpdateComponent},
-  { path: 'location-details/:id', component: LocationDetailsComponent },
+  { 
+    path: 'location-create',
+    component: LocationCreateComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin } 
+  },
 
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: '500', component: ErrorInternalServerComponent },
-  { path: '404', component : ErrorNotFoundComponent},
-  { path: '**', redirectTo: '/404', pathMatch: 'full'},
+  { 
+    path: 'locations', 
+    component: LocationsListComponent 
+  },
+
+  { 
+    path: 'location-update/:id', 
+    component: LocationUpdateComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin } 
+  },
+  { 
+    path: 'location-details/:id', 
+    component: LocationDetailsComponent,
+  },
+
+  { 
+    path: 'login', 
+    component: LoginComponent,    
+  },
+
+  { 
+    path: 'register', 
+    component: RegisterComponent
+  },
+
+  { 
+    path: '500', 
+    component: ErrorInternalServerComponent 
+  },
+
+  { 
+    path: '404', 
+    component : ErrorNotFoundComponent
+  },
+
+  { 
+    path: '**', 
+    redirectTo: '/404', 
+    pathMatch: 'full'
+  },
+
 ];
 
 @NgModule({

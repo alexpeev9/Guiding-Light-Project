@@ -12,7 +12,6 @@ export class CrudService<T> {
   }
   getSingleEl(id: string): AngularFireObject<T>{
     let path: string = this.dbPath + `/${id}`;
-    // console.log(this.database.list(path));
     return this.database.object(path);
   }
   getAll(): AngularFireList<T> {

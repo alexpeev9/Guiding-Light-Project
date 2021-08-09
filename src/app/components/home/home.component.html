@@ -1,12 +1,7 @@
 <div>
-  <button class="btn btn-primary" (click)="displayMap()">HideElements</button>
-  <div class="container" style="width:100%;height:800px" *ngIf="this.isShown">
-      <ya-map  [center]="[43.08378746005891,25.652274861931634]" (ready)="onMapReady($event)" [zoom]="15">
-        <!-- <ya-placemark *ngFor="let location of locations" 
-        [geometry]="[location.coordX,location.coordY]"
-        [placemark]=""
-        >
-        </ya-placemark> -->
+  <button class="btn btn-primary" (click)="displayMap()" *ngIf="!this.isShown">Show All Locations</button>
+  <div class="container" style="width:100%;height:800px"  *ngIf="this.isShown">
+      <ya-map  [center]="[42.711950879482046,25.333441213234483]" (ready)="onMapReady($event)" [zoom]="8">
         </ya-map>
   </div>
 </div>

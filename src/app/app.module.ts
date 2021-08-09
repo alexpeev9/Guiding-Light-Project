@@ -21,6 +21,9 @@ import { ErrorNotFoundComponent } from './components/shared/errors/error-not-fou
 import { ErrorInternalServerComponent } from './components/shared/errors/error-internal-server/error-internal-server.component';
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
+import { LocationService } from './services/location/location.service';
+import { Router } from '@angular/router';
+import { RedirectService } from './services/redirect.service';
 
 const mapConfig: YaConfig = {
   apikey: environment.yandexKey,
@@ -50,7 +53,7 @@ const mapConfig: YaConfig = {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService,LocationService,RedirectService],
   bootstrap: [AppComponent],
   schemas: [
         CUSTOM_ELEMENTS_SCHEMA, // Both not working 

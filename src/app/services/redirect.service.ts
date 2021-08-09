@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { appInjector } from '../utilities/injector';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RedirectService {
-
   constructor(private router: Router) { }
 
   public redirectToUpdatePage = (id: any) => {
@@ -18,4 +18,9 @@ export class RedirectService {
     this.router.navigate([detailsURL]);
   }
   
+  public redirectTo500Page = (id: any) => {
+    const detailsURL: string = `/500`;
+    this.router.navigate([detailsURL]);
+  }
+
 }

@@ -29,9 +29,11 @@ export class AuthService {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user') || '{}');
+        localStorage.setItem('userEmail', this.userData.email);
       } else {
         localStorage.setItem('user',JSON.stringify(null));
         JSON.parse(localStorage.getItem('user') || '{}');
+        localStorage.setItem('user',JSON.stringify(null));
       }
     })
   }
@@ -62,10 +64,10 @@ export class AuthService {
       })
   }
 
-  // Returns true when user is looged in and email is verified
+  // Returns true when user is looged
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    return (user !== null) ? true : false;
   }
   
   setUserData(user: any) {
@@ -77,7 +79,14 @@ export class AuthService {
       merge: true
     })
   }
+  checkIfAuthorMatches(author: string): boolean{
+    if(localStorage.getItem('userEmail') == author)
+    {
+      return true;
+    }
+    return false;
 
+  }
   // Sign out 
   logout() {
     this.afAuth.signOut().then(() => {

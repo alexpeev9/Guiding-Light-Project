@@ -6,7 +6,7 @@ import { YaReadyEvent } from 'angular8-yandex-maps';
 import { Location } from 'src/app/models/location.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CrudService } from 'src/app/services/crud.service';
-import { CreateLocationService } from 'src/app/services/location/create-location.service';
+import { LocationBindingService } from 'src/app/services/location/location-binding.service';
 @Component({
   selector: 'app-location-create',
   templateUrl: './location-create.component.html',
@@ -21,6 +21,7 @@ export class LocationCreateComponent implements OnInit {
   submitted = false;
   map?: ymaps.Map;
   crudService!: CrudService<Location>;
+  locationBindingService!: LocationBindingService
   get form() { return this.locationForm.controls; }
   locationForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
@@ -31,12 +32,16 @@ export class LocationCreateComponent implements OnInit {
 
   constructor(private db: AngularFireDatabase,
     private cdr: ChangeDetectorRef,
-    private locationService: CreateLocationService,
     private formBuilder: FormBuilder,
     public authService: AuthService) { }
 
   ngOnInit(): void {
     this.crudService = new CrudService<Location>("locations", this.db);
+    this.locationBindingService = new LocationBindingService;
+  }
+  
+  valuechange(value: any) {
+    this.locationBindingService.location.picture = value;
   }
 
   onSubmit(): void {
@@ -44,7 +49,7 @@ export class LocationCreateComponent implements OnInit {
       return;
     }
     
-    if (!this.locationService.checkIfHasCoords()) {
+    if (!this.locationBindingService.checkIfHasCoords()) {
       this.validattionMessage = "Click on the map to choose a location";
       return;
     }
@@ -53,14 +58,14 @@ export class LocationCreateComponent implements OnInit {
   }
 
   saveLocation(): void {
-    this.locationService.bindFormToLocation(
+    this.locationBindingService.bindFormToLocation(
       this.form.title.value,
       this.form.description.value,
       this.form.address.value,
       this.form.picture.value,
       this.authService.userData.email);
 
-      this.crudService.create(this.locationService.location).then(() => {
+      this.crudService.create(this.locationBindingService.location).then(() => {
         this.submitted = true;
       });
   }
@@ -72,7 +77,7 @@ export class LocationCreateComponent implements OnInit {
       this.coordsX = coords[0];
       this.coordsY = coords[1];
       this.cdr.detectChanges();
-      this.locationService.bindCoordinatesToLocation(coords[0], coords[1]);
+      this.locationBindingService.bindCoordinatesToLocation(coords[0], coords[1]);
     })
   }
 
