@@ -13,27 +13,25 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class LocationService {
   private crudService!: CrudService<Location>;
-  public locations!: Location[];
+  public location!: Location;
   private id!: string;
 
   constructor(
-    private locationBindingService: LocationBindingService, 
-    private db: AngularFireDatabase, 
-    private activeRoute: ActivatedRoute,
-    private locationData?: Location,
+    private db: AngularFireDatabase,
     private locationForm?: FormGroup) {
-    this.crudService = new CrudService<Location>("locations", this.db);
-    this.retrieveLocationAsForm();
-    this.retrieveLocationsAsData();
+    this.crudService = new CrudService<Location>("locations", db);
   }
 
-  retrieveLocationAsForm(): void {
-     let locationId = this.activeRoute.snapshot.url[1].toString();
-    this.crudService.getSingleEl(locationId).snapshotChanges().pipe(
-      map(changes =>changes.payload.toJSON() as Location)).subscribe(data => {
-      this.locationBindingService.location = data as Location;
-      this.locationBindingService.location.id = locationId;
-      this.locationForm?.patchValue(this.locationBindingService.location);
+  retrieveDataFromBase(id: string): Observable<Location>{
+   return this.crudService.getSingleEl(id).snapshotChanges().pipe(
+      map(changes =>changes.payload.toJSON() as Location))
+  }
+
+  retrieveLocationAsForm(locationId: string): void {
+    this.retrieveDataFromBase(locationId).subscribe(data => {
+      this.location = data as Location;
+      this.location.id = locationId;
+      this.locationForm?.patchValue(this.location);
     },
       (error) => {
         // this.errorHandler.handleError(error);
@@ -41,13 +39,10 @@ export class LocationService {
       });
   }
 
-  retrieveLocationsAsData(): void {
-    let locationId = this.activeRoute.snapshot.url[1].toString();
-    this.crudService.getSingleEl(locationId).snapshotChanges().pipe(
-      map(changes =>changes.payload.toJSON() as Location)).subscribe(data => {
-      this.locationBindingService.location = data;
-      this.locationBindingService.location.id = locationId;
-      this.locationData = this.locationBindingService.location;
+  retrieveLocationsAsData(locationId: string): void {
+    this.retrieveDataFromBase(locationId).subscribe(data => {
+        this.location = data;
+        this.location.id = locationId;
     },
       (error) => {
         // this.errorHandler.handleError(error);

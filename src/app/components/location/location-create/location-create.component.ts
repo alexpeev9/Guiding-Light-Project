@@ -22,6 +22,7 @@ export class LocationCreateComponent implements OnInit {
   map?: ymaps.Map;
   crudService!: CrudService<Location>;
   locationBindingService!: LocationBindingService
+  location!: Location;
   get form() { return this.locationForm.controls; }
   locationForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
@@ -41,7 +42,7 @@ export class LocationCreateComponent implements OnInit {
   }
   
   valuechange(value: any) {
-    this.locationBindingService.location.picture = value;
+    this.location.picture = value;
   }
 
   onSubmit(): void {
@@ -49,7 +50,7 @@ export class LocationCreateComponent implements OnInit {
       return;
     }
     
-    if (!this.locationBindingService.checkIfHasCoords()) {
+    if (!this.locationBindingService.checkIfHasCoords(this.location)) {
       this.validattionMessage = "Click on the map to choose a location";
       return;
     }
@@ -59,13 +60,14 @@ export class LocationCreateComponent implements OnInit {
 
   saveLocation(): void {
     this.locationBindingService.bindFormToLocation(
+      this.location,
       this.form.title.value,
       this.form.description.value,
       this.form.address.value,
       this.form.picture.value,
       this.authService.userData.email);
 
-      this.crudService.create(this.locationBindingService.location).then(() => {
+      this.crudService.create(this.location).then(() => {
         this.submitted = true;
       });
   }
@@ -77,7 +79,7 @@ export class LocationCreateComponent implements OnInit {
       this.coordsX = coords[0];
       this.coordsY = coords[1];
       this.cdr.detectChanges();
-      this.locationBindingService.bindCoordinatesToLocation(coords[0], coords[1]);
+      this.locationBindingService.bindCoordinatesToLocation(this.location,coords[0], coords[1]);
     })
   }
 

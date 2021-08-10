@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Location } from '../../models/location.model';
 import { CrudService } from '../crud.service';
@@ -26,12 +26,14 @@ export class LocationsService {
       )
     )
   }
-  retrieveLocations(): void{  // returns Subscription
-    this.retrieveLocationsFromBase().subscribe(data => {
+  
+  retrieveLocations(): Subscription{  // returns Subscription
+    return this.retrieveLocationsFromBase().subscribe(data => {
       this.locations = data;
     },
     (error) => {
       console.log(error);
-    });  
+    }) 
   }  
 }
+

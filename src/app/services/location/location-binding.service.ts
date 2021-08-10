@@ -1,42 +1,41 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Location } from 'src/app/models/location.model';
 @Injectable({
   providedIn: 'root'
 })
 export class LocationBindingService {
-  location: Location = {};
-  // @Input() coordX = this.location.coordX;
-  // @Input() coordY = this.location.coordY;
+
   constructor() {
    }
-  changePicture(value: string)
+
+  changePicture(location: Location,value: string)
   {
-    this.location.picture = value;
+    location.picture = value;
   }
-  bindFormToLocation(title: string, description: string, address:string ,picture: string, author: string): void{
-    this.location.title = title;
-    this.location.description = description;
-    this.location.address = address;
-    this.location.picture = picture;
-    this.location.author = author;
+  bindFormToLocation(location: Location,title: string, description: string, address:string ,picture: string, author: string): void{
+    location.description = description;
+    location.address = address;
+    location.title = title;
+    location.picture = picture;
+    location.author = author;
   }
   
-  bindFormToLocationWithoutAuthor(title: string, description: string, address:string ,picture: string, author: string): void{
-    this.location.title = title;
-    this.location.description = description;
-    this.location.address = address;
-    this.location.picture = picture;
-    this.location.author = author;
+  bindFormToLocationWithoutAuthor(location: Location, title: string, description: string, address:string ,picture: string, author: string): void{
+    location.title = title;
+    location.description = description;
+    location.address = address;
+    location.picture = picture;
+    location.author = author;
   }
 
-  bindCoordinatesToLocation(coordX: number, coordY:number){
-    this.location.coordX = coordX;
-    this.location.coordY = coordY;
+  bindCoordinatesToLocation(location: Location, coordX: number, coordY: number){
+    location.coordX = coordX;
+    location.coordY = coordY;
   }
-  checkIfHasCoords(): boolean {
-    return this.location.coordX != null;
+  checkIfHasCoords(location : Location): boolean {
+    return location.coordX != null;
   }
   clearLocation(): void{
-    this.bindFormToLocationWithoutAuthor("","","","","");
+    this.bindFormToLocationWithoutAuthor({},"","","","","");
   }
 }

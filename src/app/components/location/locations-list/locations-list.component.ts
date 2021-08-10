@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { Location } from 'src/app/models/location.model';
@@ -9,22 +9,13 @@ import { LocationsService } from 'src/app/services/location/locations.service';
   selector: 'app-locations-list',
   templateUrl: './locations-list.component.html',
 })
-export class LocationsListComponent implements OnInit {
+export class LocationsListComponent {
 
-  locationBindingService! : LocationsService;
   crudService!: CrudService<Location>;
-  locations!: any;
 
-  constructor(private db: AngularFireDatabase,private router: Router) {
+  constructor(public locationsService: LocationsService,private router: Router) {
   }
   
-  ngOnInit(): void {
-    this.crudService = new CrudService<Location>("locations", this.db);
-    this.locationBindingService = new LocationsService(this.db);
-    this.locationBindingService.retrieveLocations();
-    this.locations = this.locationBindingService.locations;
-  }
-
   public redirectToUpdatePage = (id: any) => {
     const updateUrl: string = `/location-update/${id}`;
     this.router.navigate([updateUrl]);

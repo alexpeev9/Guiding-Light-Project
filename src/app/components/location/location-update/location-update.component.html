@@ -23,13 +23,13 @@
       <input type="text" formControlName="picture" class="form-control" id="picture"
         (ngModelChange)="valuechange($event)" [ngClass]="{ 'is-invalid': form.picture.errors }" />
       <div>
-        <td><img style="width:500px;height:500px" [src]="this.locationBindingService.location.picture"></td>
+        <td><img style="width:500px;height:500px" [src]="this.locationService.location.picture"></td>
       </div>
     </div>
 
     <div style="width:100%;height:300px">
-      <ya-map [center]="[(this.locationBindingService.location.coordX!),(this.locationBindingService.location.coordY!)]" [zoom]="15" (ready)="mouseClick($event)">
-        <ya-placemark [geometry]="[[(this.locationBindingService.location.coordX!)],[(this.locationBindingService.location.coordY!)]]">
+      <ya-map [center]="[(this.locationService.location.coordX!),(this.locationService.location.coordY!)]" [state]="{type: 'yandex#satellite'}" [zoom]="15" (ready)="mouseClick($event)">
+        <ya-placemark [geometry]="[[(this.locationService.location.coordX!)],[(this.locationService.location.coordY!)]]">
         </ya-placemark>
       </ya-map>
     </div>
