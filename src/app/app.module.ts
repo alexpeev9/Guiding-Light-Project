@@ -22,9 +22,9 @@ import { ErrorInternalServerComponent } from './components/shared/errors/error-i
 import { LoginComponent } from './components/authentication/login/login.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { LocationService } from './services/location/location.service';
-import { Router } from '@angular/router';
 import { RedirectService } from './services/redirect.service';
 import { CrudService } from './services/crud.service';
+import { ArchwizardModule } from 'angular-archwizard';
 
 const mapConfig: YaConfig = {
   apikey: environment.yandexKey,
@@ -47,6 +47,7 @@ const mapConfig: YaConfig = {
     ],
   imports: [
     BrowserModule,
+    ArchwizardModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -57,8 +58,8 @@ const mapConfig: YaConfig = {
   providers: [AuthService,LocationService,RedirectService,CrudService],
   bootstrap: [AppComponent],
   schemas: [
-        CUSTOM_ELEMENTS_SCHEMA, // Both not working 
-        NO_ERRORS_SCHEMA
+        // CUSTOM_ELEMENTS_SCHEMA,
+        // NO_ERRORS_SCHEMA
       ]
 })
 export class AppModule { }
