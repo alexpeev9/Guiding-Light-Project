@@ -2,3 +2,14 @@
 <a>{{this.locationService.location?.id}}</a>
 <img style="width:500px;height:500px" [src]="this.locationService.location?.picture!">
 <p>{{this.locationService.location?.description}}</p>
+<div  *ngIf="this.authService.isLoggedIn">
+  <h3>{{this.locationService.location?.author}}</h3>
+  <button type="button" id="update" class="btn btn-success" (click)="redirectToUpdatePage(this.id)">Update</button>
+</div>
+<!-- <div class="container" style="width:100%;height:400px">
+    <ya-map [center]="[location?.coordX!,location?.coordY!]" [zoom]="15">
+      <ya-placemark [geometry]="[location?.coordX,location?.coordY]">
+      </ya-placemark>
+      </ya-map>
+</div> -->
+<!-- <button (click)="deleteLocation()" class="btn btn-danger justify-content-center my-4 border-0">Delete</button> -->

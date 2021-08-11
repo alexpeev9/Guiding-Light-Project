@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { LocationService } from 'src/app/services/location/location.service';
 
@@ -10,11 +11,10 @@ import { LocationService } from 'src/app/services/location/location.service';
 })
 export class LocationDetailsComponent implements OnInit {
   
-  public errorMessage: string = '';
   id!: string;
   locationService!: LocationService;
 
-  constructor(private db: AngularFireDatabase, private activeRoute: ActivatedRoute, private errorHandler: ErrorHandlerService) {
+  constructor(public authService: AuthService,private db: AngularFireDatabase, private router: Router,private activeRoute: ActivatedRoute, private errorHandler: ErrorHandlerService) {
    }
 
   ngOnInit(): void {
@@ -23,11 +23,8 @@ export class LocationDetailsComponent implements OnInit {
     this.locationService.retrieveLocationsAsData(this.id);
   }
 
-  // deleteLocation(): void{
-  //   this.crudService.delete(this.id).catch(error => {
-  //     this.errorHandler.handleError(error);
-  //     this.errorMessage = this.errorHandler.errorMessage;
-  //   });
-  //   this.router.navigate(['']);
-  // }
+  public redirectToUpdatePage = (id: any) => {
+    const updateUrl: string = `/location-update/${id}`;
+    this.router.navigate([updateUrl]);
+  }
 }

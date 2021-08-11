@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, Output } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { YaReadyEvent } from 'angular8-yandex-maps';
 
 import { CrudService } from 'src/app/services/crud.service';
@@ -30,6 +30,7 @@ export class LocationUpdateComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private redirectService: RedirectService,
     private formBuilder: FormBuilder,
+    private router: Router,
     private crudService: CrudService<Location>,
     private locationBindingService: LocationBindingService,
     public authService: AuthService,
@@ -87,14 +88,27 @@ export class LocationUpdateComponent implements OnInit {
   }
 
   checkIfSameUser(): string{
-    if(this.authService.userData.email == this.locationService.location.author)
+    let currentUser: string = this.authService.userData.email;
+    let locationAuthor: string | undefined= this.locationService.location.author;
+    if(currentUser == locationAuthor)
     {
-      return this.authService.userData.email;
+      return locationAuthor;
     }
     else
     {
-      var newList = this.locationService.location.author += `\n ${this.authService.userData.email}`;
+      if(locationAuthor?.split(' ').includes(currentUser))
+      {
+        return locationAuthor;
+      }
+      var newList = locationAuthor += `\n ${currentUser}`;
       return newList;
     }
+  }
+    deleteLocation(): void{
+    this.crudService.delete(this.id).catch(error => {
+      // this.errorHandler.handleError(error);
+      // this.errorMessage = this.errorHandler.errorMessage;
+    });
+    this.router.navigate(['']);
   }
 }

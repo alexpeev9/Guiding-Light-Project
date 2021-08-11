@@ -1,6 +1,6 @@
 <div>
-  <h2>Register</h2>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" *ngIf="!this.authService.isLoggedIn">
+        <h2>Register</h2>
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': form.username.errors }" />
@@ -23,4 +23,7 @@
         </div>
         <p>{{errorMsg}}</p>
     </form>
+    <div *ngIf="this.authService.isLoggedIn">
+        <h2>You are already logged in!</h2>
+    </div>
 </div>

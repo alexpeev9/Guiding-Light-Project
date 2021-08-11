@@ -87,6 +87,7 @@ export class AuthService {
     return false;
 
   }
+  
   // Sign out 
   logout() {
     this.afAuth.signOut().then(() => {
