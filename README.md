@@ -1,4 +1,4 @@
-##Guiding Light Project
+## Guiding Light Project
 **This is beta and pictures will be changed in future**
 
 ![Picture 1](https://i.imgur.com/9ajwm2b.png)
