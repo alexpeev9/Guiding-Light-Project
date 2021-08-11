@@ -78,6 +78,8 @@ export class LocationUpdateComponent implements OnInit {
       this.form.description.value,
       this.form.address.value,
       this.form.picture.value,
+      0,
+      0,
       this.checkIfSameUser());
 
     this.locationService.location.id = this.activeRoute.snapshot.url[1].toString();

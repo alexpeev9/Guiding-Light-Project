@@ -1,71 +1,53 @@
-import { ChangeDetectorRef, Component, Injectable, Input, OnInit, Output } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { YaReadyEvent } from 'angular8-yandex-maps';
-
 import { Location } from 'src/app/models/location.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CrudService } from 'src/app/services/crud.service';
-import { LocationBindingService } from 'src/app/services/location/location-binding.service';
+
 @Component({
   selector: 'app-location-create',
   templateUrl: './location-create.component.html',
 })
 
-export class LocationCreateComponent implements OnInit {
+export class LocationCreateComponent  {
 
   @Input() coordsX!: number;
   @Input() coordsY!: number;
-  @Output() validattionMessage!: string;
 
   submitted = false;
   map?: ymaps.Map;
-  location!: Location;
   get form() { return this.locationForm.controls; }
   locationForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
     address: ['', Validators.required],
-    picture: ['', Validators.required]
+    picture: ['', Validators.required],
+    coordsX: [undefined, Validators.required],
+    coordsY: [undefined, Validators.required],
+    author: this.authService.userData.email!
   });
 
-  constructor(private db: AngularFireDatabase,
-    private cdr: ChangeDetectorRef,
+  constructor(private cdr: ChangeDetectorRef,
     private crudService: CrudService<Location>,
-    private locationBindingService: LocationBindingService,
     private formBuilder: FormBuilder,
     public authService: AuthService) { }
 
-  ngOnInit(): void {
-  }
-  
+
   valuechange(value: any) {
-    this.location.picture = value;
+    this.form.picture.setValue(value);
   }
 
   onSubmit(): void {
     if (this.locationForm.invalid) {
       return;
     }
-    
-    if (!this.locationBindingService.checkIfHasCoords(this.location)) {
-      this.validattionMessage = "Click on the map to choose a location";
-      return;
-    }
+    // //For Testing 
+    // var location = new Location;
+    // var location = this.locationForm.value as Location;
+    // window.console.log(location);
 
-    this.saveLocation();
-  }
-
-  saveLocation(): void {
-    this.locationBindingService.bindFormToLocation(
-      this.location,
-      this.form.title.value,
-      this.form.description.value,
-      this.form.address.value,
-      this.form.picture.value,
-      this.authService.userData.email);
-
-      this.crudService.create(this.location).then(() => {
+      this.crudService.create(this.locationForm.value as Location).then(() => {
         this.submitted = true;
       });
   }
@@ -77,7 +59,8 @@ export class LocationCreateComponent implements OnInit {
       this.coordsX = coords[0];
       this.coordsY = coords[1];
       this.cdr.detectChanges();
-      this.locationBindingService.bindCoordinatesToLocation(this.location,coords[0], coords[1]);
+      this.form.coordsX.patchValue(coords[0]);
+      this.form.coordsY.patchValue(coords[1]);
     })
   }
 

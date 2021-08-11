@@ -32,7 +32,7 @@ export class HomeComponent {
           coordinates: [l.coordX,l.coordY],
         },
         properties: {
-          balloonContentHeader: `<img style="width:200px;height:200px" src=${l.picture}>`,
+          balloonContentHeader: `<img style="width:190px;height:200px" src=${l.picture}>`,
           balloonContentFooter: `<a href="location-details/${l.id}" ><button>${l.title}</button></a>`,
           
           hintContent: `${l.title}`
