@@ -13,7 +13,7 @@ export class LocationsService {
   private crudService!: CrudService<Location>;
   public locations!: Location[];
   constructor(private db: AngularFireDatabase) { 
-    this.crudService = new CrudService<Location>("locations", this.db);
+    this.crudService = new CrudService<Location>(this.db);
     this.retrieveLocations();
   }
 

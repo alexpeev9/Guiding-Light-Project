@@ -20,9 +20,7 @@ export class LocationUpdateComponent implements OnInit {
   pictureURL!: string;
   public errorMessage: string = '';
   id!: string;
-  locationBindingService!: LocationBindingService;
   locationService!: LocationService;
-  crudService!: CrudService<Location>;
   isSubmitted: boolean = false;
 
   @Output() coordsX?: number;
@@ -32,6 +30,8 @@ export class LocationUpdateComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private redirectService: RedirectService,
     private formBuilder: FormBuilder,
+    private crudService: CrudService<Location>,
+    private locationBindingService: LocationBindingService,
     public authService: AuthService,
     private activeRoute: ActivatedRoute) {
     }
@@ -49,8 +49,6 @@ export class LocationUpdateComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.crudService = new CrudService<Location>("locations", this.db);
-    this.locationBindingService = new LocationBindingService;
     this.id = this.activeRoute.snapshot.url[1].toString();
     this.locationService = new LocationService(this.db,this.locationForm)
     this.locationService.retrieveLocationAsForm(this.id);

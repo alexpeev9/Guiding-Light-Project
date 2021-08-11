@@ -19,7 +19,7 @@ export class LocationService {
   constructor(
     private db: AngularFireDatabase,
     private locationForm?: FormGroup) {
-    this.crudService = new CrudService<Location>("locations", db);
+    this.crudService = new CrudService<Location>(db);
   }
 
   retrieveDataFromBase(id: string): Observable<Location>{

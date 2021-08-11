@@ -24,6 +24,7 @@ import { RegisterComponent } from './components/authentication/register/register
 import { LocationService } from './services/location/location.service';
 import { Router } from '@angular/router';
 import { RedirectService } from './services/redirect.service';
+import { CrudService } from './services/crud.service';
 
 const mapConfig: YaConfig = {
   apikey: environment.yandexKey,
@@ -53,7 +54,7 @@ const mapConfig: YaConfig = {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
   ],
-  providers: [AuthService,LocationService,RedirectService],
+  providers: [AuthService,LocationService,RedirectService,CrudService],
   bootstrap: [AppComponent],
   schemas: [
         CUSTOM_ELEMENTS_SCHEMA, // Both not working 

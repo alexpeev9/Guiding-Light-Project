@@ -20,8 +20,6 @@ export class LocationCreateComponent implements OnInit {
 
   submitted = false;
   map?: ymaps.Map;
-  crudService!: CrudService<Location>;
-  locationBindingService!: LocationBindingService
   location!: Location;
   get form() { return this.locationForm.controls; }
   locationForm: FormGroup = this.formBuilder.group({
@@ -33,12 +31,12 @@ export class LocationCreateComponent implements OnInit {
 
   constructor(private db: AngularFireDatabase,
     private cdr: ChangeDetectorRef,
+    private crudService: CrudService<Location>,
+    private locationBindingService: LocationBindingService,
     private formBuilder: FormBuilder,
     public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.crudService = new CrudService<Location>("locations", this.db);
-    this.locationBindingService = new LocationBindingService;
   }
   
   valuechange(value: any) {

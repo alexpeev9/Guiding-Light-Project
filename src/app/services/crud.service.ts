@@ -1,24 +1,29 @@
+import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 
-export class CrudService<T> {
+@Injectable({
+  providedIn: 'root'
+})
+
+export class CrudService<Location> {
   private database;
   private dbPath:string;
-  private elementRef: AngularFireList<T>;
+  private elementRef: AngularFireList<Location>;
 
-  constructor(value: string, db: AngularFireDatabase) { 
+  constructor(db: AngularFireDatabase) { 
     this.database = db;
-    this.dbPath = `/${value}`;
+    this.dbPath = `/locations`;
     this.elementRef = db.list(this.dbPath);
   }
-  getSingleEl(id: string): AngularFireObject<T>{
+  getSingleEl(id: string): AngularFireObject<Location>{
     let path: string = this.dbPath + `/${id}`;
     return this.database.object(path);
   }
-  getAll(): AngularFireList<T> {
+  getAll(): AngularFireList<Location> {
     return this.elementRef;
   }
 
-  create(element: T): any {
+  create(element: Location): any {
     return this.elementRef.push(element);
   }
 
