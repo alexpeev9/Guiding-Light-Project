@@ -12,8 +12,8 @@ import { CrudService } from 'src/app/services/crud.service';
 
 export class LocationCreateComponent  {
 
-  @Input() coordsX!: number;
-  @Input() coordsY!: number;
+  @Input() coordX!: number;
+  @Input() coordY!: number;
 
   submitted = false;
   map?: ymaps.Map;
@@ -23,8 +23,8 @@ export class LocationCreateComponent  {
     description: ['', Validators.required],
     address: ['', Validators.required],
     picture: ['', Validators.required],
-    coordsX: [undefined, Validators.required],
-    coordsY: [undefined, Validators.required],
+    coordX: [undefined, Validators.required],
+    coordY: [undefined, Validators.required],
     author: this.authService.userData.email!
   });
 
@@ -42,7 +42,7 @@ export class LocationCreateComponent  {
     if (this.locationForm.invalid) {
       return;
     }
-    // //For Testing 
+    //For Testing 
     // var location = new Location;
     // var location = this.locationForm.value as Location;
     // window.console.log(location);
@@ -56,11 +56,11 @@ export class LocationCreateComponent  {
     const map = event.target;
     map.events.add('click', (e) => {
       var coords = e.get('coords');
-      this.coordsX = coords[0];
-      this.coordsY = coords[1];
+      this.coordX = coords[0];
+      this.coordY = coords[1];
       this.cdr.detectChanges();
-      this.form.coordsX.patchValue(coords[0]);
-      this.form.coordsY.patchValue(coords[1]);
+      this.form.coordX.patchValue(coords[0]);
+      this.form.coordY.patchValue(coords[1]);
     })
   }
 

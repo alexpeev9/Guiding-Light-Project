@@ -48,5 +48,6 @@ export class LocationService {
         // this.errorHandler.handleError(error);
         // this.errorMessage = this.errorHandler.errorMessage;
       });
+      // return this.location;
   }
 }

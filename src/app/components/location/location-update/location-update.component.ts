@@ -23,8 +23,8 @@ export class LocationUpdateComponent implements OnInit {
   locationService!: LocationService;
   isSubmitted: boolean = false;
 
-  @Output() coordsX?: number;
-  @Output() coordsY?: number;
+  @Output() coordX?: number;
+  @Output() coordY?: number;
 
   constructor(private db: AngularFireDatabase,
     private cdr: ChangeDetectorRef,
@@ -106,8 +106,6 @@ export class LocationUpdateComponent implements OnInit {
   }
     deleteLocation(): void{
     this.crudService.delete(this.id).catch(error => {
-      // this.errorHandler.handleError(error);
-      // this.errorMessage = this.errorHandler.errorMessage;
     });
     this.router.navigate(['']);
   }

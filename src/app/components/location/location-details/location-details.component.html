@@ -1,15 +1,37 @@
-<h3>{{this.locationService.location?.title}}</h3>
-<a>{{this.locationService.location?.id}}</a>
-<img style="width:500px;height:500px" [src]="this.locationService.location?.picture!">
-<p>{{this.locationService.location?.description}}</p>
-<div  *ngIf="this.authService.isLoggedIn">
-  <h3>{{this.locationService.location?.author}}</h3>
-  <button type="button" id="update" class="btn btn-success" (click)="redirectToUpdatePage(this.id)">Update</button>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <div class="project-info-box mt-0">
+        <h5 class="text-dark"> {{this.locationService.location?.title}}</h5>
+        <p class="mb-0">{{this.locationService.location?.description}}</p>
+      </div>
+
+      <div class="project-info-box">
+        <p><b>Address</b> {{this.locationService.location?.address}}</p>
+        <p><b>Coord X:</b> {{this.locationService.location?.coordX}}</p>
+        <p><b>Coord Y:</b> {{this.locationService.location?.coordY}}</p>
+      </div>
+
+      <div class="project-info-box p-0" style="width:100%;height:315px">
+        <ya-map [center]="[this.locationService.location?.coordX!,this.locationService.location?.coordY!]"
+          [state]="{type: 'yandex#satellite'}" [zoom]="15">
+          <ya-placemark [geometry]="[this.locationService.location?.coordX,this.locationService.location?.coordY]">
+          </ya-placemark>
+        </ya-map>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <img style="height:800px" [src]="this.locationService.location?.picture" alt="current picture" class="rounded">
+      <div class="project-info-box mt-2 mb-0" *ngIf="this.authService.isLoggedIn">
+        <p class="mb-0">
+          <span class="fw-bold mr-10 va-middle hide-mobile">Users working on this: </span>
+          <span>{{this.locationService.location?.author}}</span>
+        </p>
+        <p class="d-flex justify-content-center mb-0 py-2">
+          <button type="button" id="update" class="btn btn-success"
+            (click)="redirectToUpdatePage(this.id)">Update</button>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- <div class="container" style="width:100%;height:400px">
-    <ya-map [center]="[location?.coordX!,location?.coordY!]" [zoom]="15">
-      <ya-placemark [geometry]="[location?.coordX,location?.coordY]">
-      </ya-placemark>
-      </ya-map>
-</div> -->
-<!-- <button (click)="deleteLocation()" class="btn btn-danger justify-content-center my-4 border-0">Delete</button> -->

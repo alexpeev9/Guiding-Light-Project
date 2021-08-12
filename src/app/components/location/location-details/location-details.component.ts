@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 import { LocationService } from 'src/app/services/location/location.service';
+import { Location } from 'src/app/models/location.model';
 
 @Component({
   selector: 'app-location-details',
-  templateUrl: './location-details.component.html'
+  templateUrl: './location-details.component.html',
+  styleUrls: ['./location-details.component.css']
 })
 export class LocationDetailsComponent implements OnInit {
+  
+  @Input() coordX!: number;
+  @Input() coordY!: number;
   
   id!: string;
   locationService!: LocationService;

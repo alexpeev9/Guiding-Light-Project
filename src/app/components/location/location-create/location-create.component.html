@@ -1,6 +1,6 @@
 <div class="justify-content-center d-flex">
   <div class="submit-form w-50 align-items-center">
-    <form [formGroup]="locationForm" (ngSubmit)="onSubmit()" *ngIf="!submitted">
+    <form [formGroup]="locationForm" *ngIf="!submitted">
       <aw-wizard>
         <aw-wizard-step stepTitle="1 | Fill inputs" class="container">
           <div class="row">
@@ -45,7 +45,7 @@
           <div style="width:100%;height:500px">
             <ya-map [center]="[43.07744986756709,25.616192654179123]" [state]="{type: 'yandex#satellite'}" [zoom]="8"
               (ready)="mouseClick($event)">
-              <ya-placemark [geometry]="[[(this.coordsX)],[(this.coordsY)]]">
+              <ya-placemark [geometry]="[[(this.coordX)],[(this.coordY)]]">
               </ya-placemark>
             </ya-map>
           </div>
@@ -58,7 +58,7 @@
           <div class="justify-content-center d-flex p-3 align-items-center">
             <button class="btn btn-danger mr-5" type="button" awPreviousStep>Previous Step</button>
             <div class="form-group">
-              <button class="btn btn-success" type="button" [disabled]="locationForm.invalid"> Create Location</button>
+              <button class="btn btn-success" type="button" [disabled]="locationForm.invalid" (click)="onSubmit()"> Create Location</button>
             </div>
           </div>
           <h3 class="text-danger" *ngIf="locationForm.invalid">Please fill all the input fields to proceed!</h3>
@@ -69,9 +69,9 @@
               <p>Picture | Map:</p>
             <div class="justify-content-center d-flex">
               <img *ngIf="!form.picture.errors" style="width:50%;height:500px" [src]="this.form.picture.value">
-              <div style="width:50%;height:500px" *ngIf="this.coordsX">
+              <div style="width:50%;height:500px" *ngIf="this.coordX">
               <ya-map [center]="[43.07744986756709,25.616192654179123]" [state]="{type: 'yandex#satellite'}" [zoom]="8">
-              <ya-placemark [geometry]="[[(this.coordsX)],[(this.coordsY)]]">
+              <ya-placemark [geometry]="[[(this.coordX)],[(this.coordY)]]">
               </ya-placemark>
               </ya-map>
               </div>
