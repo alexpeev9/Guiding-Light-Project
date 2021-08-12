@@ -31,10 +31,10 @@ export class HomeComponent {
           type: 'Point',
           coordinates: [l.coordX,l.coordY],
         },
-        properties: {
-          balloonContentHeader: `<img style="width:190px;height:200px" src=${l.picture}>`,
-          balloonContentFooter: `<a href="location-details/${l.id}" ><button>${l.title}</button></a>`,
-          
+        properties: { 
+          balloonContentHeader: `${l.title}`,
+          balloonContentBody: `<img style="width:190px;height:200px" src=${l.picture}>`,
+          balloonContentFooter: `<a href="location-details/${l.id}" ><button class="btn btn-success">Details</button></a>`,
           hintContent: `${l.title}`
         },
       });
