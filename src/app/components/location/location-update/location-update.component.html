@@ -1,4 +1,4 @@
-<div class="justify-content-center d-flex">
+<div class="justify-content-center d-flex" *ngIf="this.locationService.isLoaded">
   <form [formGroup]="locationForm" class="submit-form w-75 align-items-center">
     <div class="row">
       <div class="form-group col-6" >
@@ -16,8 +16,6 @@
 
     <div class="form-group pt-1">
       <label for="description">Description</label>
-      <!-- <input type="text" formControlName="description" class="form-control" id="description"
-        [ngClass]="{ 'is-invalid': form.description.errors }" /> -->
       <textarea  type="text" formControlName="description" rows="5" class="form-control" id="description" placeholder="Enter Description"
         [ngClass]="{ 'is-invalid': form.description.errors,'w-100':true }"></textarea>
     </div>
@@ -29,7 +27,7 @@
     <div class="justify-content-center d-flex">
       <img *ngIf="!form.picture.errors" style="width:50%;height:500px" [src]="this.form.picture.value">
        <div style="width:50%;height:500px">
-        <ya-map [center]="[(this.locationService.location?.coordX!),(this.locationService.location?.coordY!)]" [state]="{type: 'yandex#satellite'}" [zoom]="15" (ready)="mouseClick($event)">
+        <ya-map [center]="[this.locationService.location?.coordX!,this.locationService.location?.coordY!]" [zoom]="7" (ready)="mouseClick($event)">
           <ya-placemark [geometry]="[[(this.locationService.location?.coordX!)],[(this.locationService.location?.coordY!)]]">
           </ya-placemark>
         </ya-map>

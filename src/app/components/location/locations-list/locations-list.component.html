@@ -1,4 +1,4 @@
-  <section>
+  <section *ngIf="this.locationsService.isLoaded">
     <div class="container py-4">
       <!-- <h1 class="h1 text-center" id="pageHeaderTitle">Locations list</h1> -->
       <article class="postcard" *ngFor="let location of  this.locationsService.locations; let i=index">

@@ -46,7 +46,6 @@ export class LocationCreateComponent  {
     // var location = new Location;
     // var location = this.locationForm.value as Location;
     // window.console.log(location);
-
       this.crudService.create(this.locationForm.value as Location).then(() => {
         this.submitted = true;
       });

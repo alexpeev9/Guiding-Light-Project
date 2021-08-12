@@ -41,9 +41,8 @@
         </aw-wizard-step>
         <aw-wizard-step stepTitle="3 | Map on the map">
           <p class="py-1">Click on the map to select a location</p>
-          <!-- <p class="py-2">Coordinates: {{coordsX!}} {{coordsY!}}</p> -->
           <div style="width:100%;height:500px">
-            <ya-map [center]="[43.07744986756709,25.616192654179123]" [state]="{type: 'yandex#satellite'}" [zoom]="8"
+            <ya-map [center]="[43.07744986756709,25.616192654179123]" [zoom]="8"
               (ready)="mouseClick($event)">
               <ya-placemark [geometry]="[[(this.coordX)],[(this.coordY)]]">
               </ya-placemark>

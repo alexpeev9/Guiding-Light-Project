@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="this.locationService.isLoaded">
   <div class="row">
     <div class="col-md-5">
       <div class="project-info-box mt-0">
@@ -13,8 +13,7 @@
       </div>
 
       <div class="project-info-box p-0" style="width:100%;height:315px">
-        <ya-map [center]="[this.locationService.location?.coordX!,this.locationService.location?.coordY!]"
-          [state]="{type: 'yandex#satellite'}" [zoom]="15">
+        <ya-map [center]="[this.locationService.location?.coordX!,this.locationService.location?.coordY!]" [zoom]="7">
           <ya-placemark [geometry]="[this.locationService.location?.coordX,this.locationService.location?.coordY]">
           </ya-placemark>
         </ya-map>

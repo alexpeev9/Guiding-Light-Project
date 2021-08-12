@@ -11,6 +11,7 @@ import { CrudService } from '../crud.service';
 
 export class LocationsService {
   private crudService!: CrudService<Location>;
+  public isLoaded: boolean = false;
   public locations!: Location[];
   constructor(private db: AngularFireDatabase) { 
     this.crudService = new CrudService<Location>(this.db);
@@ -30,6 +31,7 @@ export class LocationsService {
   retrieveLocations(): Subscription{  // returns Subscription
     return this.retrieveLocationsFromBase().subscribe(data => {
       this.locations = data;
+      this.isLoaded = true;
     },
     (error) => {
       console.log(error);

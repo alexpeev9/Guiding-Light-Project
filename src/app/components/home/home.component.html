@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="this.locationsService.isLoaded">
   <div class="container" style="width:100%;height:800px"> 
       <ya-map  [center]="[42.711950879482046,25.333441213234483]" [state]="{type: 'yandex#satellite'}" (ready)="onMapReady($event)" [zoom]="8">
         </ya-map>
