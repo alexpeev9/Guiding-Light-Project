@@ -1,28 +1,20 @@
-  <table class="table table-dark">
-    <thead>
-      <tr class="text-center">
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Author</th>
-        <th scope="col">Address</th>
-        <th scope="col">Picture</th>
-        <th scope="col">Description</th>
-        <!-- <th scope="col">Location</th> -->
-        <th scope="col">Buttons</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let location of  this.locationsService.locations; let i=index" class="align-middle">
-        <th scope="row">{{i+1}}</th>
-        <!-- <td>{{location.id}}</td> -->
-        <td>{{location.title}}</td>
-        <td>{{location.author}}</td>
-        <td>{{location.address}}</td>
-        <td><img style="width:500px;height:500px" [src]="location.picture"></td>
-        <td class="align-top">{{location.description}}</td>
-        <td>
-          <button type="button" id="details" class="btn btn-light" (click)="redirectToDetailsPage(location.id)">Details</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <section>
+    <div class="container py-4">
+      <!-- <h1 class="h1 text-center" id="pageHeaderTitle">Locations list</h1> -->
+      <article class="postcard" *ngFor="let location of  this.locationsService.locations; let i=index">
+        <a class="postcard__img_link">
+          <img class="postcard__img" [src]="location.picture"  alt="location picture" />
+        </a>
+        <div class="postcard__text">
+          <h1 class="postcard__title blue pl-3"><a>{{location.title}}</a></h1>
+          <div class="postcard__subtitle small">
+          </div>
+          <div class="postcard__bar"></div>
+          <div class="postcard__preview-txt">{{location.description}}</div>
+          <div class="postcard__tagbox">
+              <button type="button" id="details" class="btn btn-light" (click)="redirectToDetailsPage(location.id)"><a>More Details</a></button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>

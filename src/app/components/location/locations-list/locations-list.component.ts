@@ -7,6 +7,7 @@ import { LocationsService } from 'src/app/services/location/locations.service';
 @Component({
   selector: 'app-locations-list',
   templateUrl: './locations-list.component.html',
+  styleUrls: ['./location-list.component.scss']
 })
 export class LocationsListComponent {
 
