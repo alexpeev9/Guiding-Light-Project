@@ -60,6 +60,7 @@
               <button class="btn btn-success" type="button" [disabled]="locationForm.invalid" (click)="onSubmit()"> Create Location</button>
             </div>
           </div>
+          <h3 class="text-danger text-center">{{errorMsg}}</h3>
           <h3 class="text-danger" *ngIf="locationForm.invalid">Please fill all the input fields to proceed!</h3>
           <div class="bg-white text-dark">
               <h3>Title: {{this.form.title.value}}</h3>

@@ -7,9 +7,9 @@ import { CrudService } from 'src/app/services/crud.service';
 import { Location } from 'src/app/models/location.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LocationBindingService } from 'src/app/services/location/location-binding.service'
 import { RedirectService } from 'src/app/services/redirect.service';
 import { LocationService } from 'src/app/services/location/location.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-location-update',
@@ -20,7 +20,13 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
   @Input() coordX!: number;
   @Input() coordY!: number;
   pictureURL!: string;
-  public errorMessage: string = '';
+
+  @Output()
+  get errorMsg() {
+    return this.errorMessage;
+  }
+  errorMessage!: string;
+  
   id!: string;
   isSubmitted: boolean = false;
 
@@ -29,6 +35,7 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
     private redirectService: RedirectService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private errorHandler: ErrorHandlerService,
     public locationService: LocationService,
     private crudService: CrudService<Location>,
     public authService: AuthService,
@@ -79,6 +86,9 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
 
     this.crudService.update(this.id, this.locationForm.value as Location).then(()=>{
     this.redirectService.redirectToDetailsPage(this.id);
+    }).catch((error)=>{
+      this.errorHandler.handleError(error);
+      this.errorMessage = error.message;
     });
   }
 
@@ -98,9 +108,12 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
   }
 
   deleteLocation(): void {
-    this.crudService.delete(this.id).catch(error => {
+    this.crudService.delete(this.id).then(()=>{
+      this.router.navigate(['']);
+    }).catch(error => {
+      this.errorHandler.handleError(error);
+      this.errorMessage = error.message;
     });
-    this.router.navigate(['']);
   }
 
   ngOnDestroy(): void{

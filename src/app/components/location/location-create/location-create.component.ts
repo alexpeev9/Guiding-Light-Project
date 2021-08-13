@@ -1,9 +1,10 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { YaReadyEvent } from 'angular8-yandex-maps';
 import { Location } from 'src/app/models/location.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CrudService } from 'src/app/services/crud.service';
+import { ErrorHandlerService } from 'src/app/services/error-handler.service';
 
 @Component({
   selector: 'app-location-create',
@@ -14,7 +15,11 @@ export class LocationCreateComponent  {
 
   @Input() coordX!: number;
   @Input() coordY!: number;
-
+  @Output()
+  get errorMsg() {
+    return this.errorMessage;
+  }
+  errorMessage!: string;
   submitted = false;
   map?: ymaps.Map;
   get form() { return this.locationForm.controls; }
@@ -30,6 +35,7 @@ export class LocationCreateComponent  {
 
   constructor(private cdr: ChangeDetectorRef,
     private crudService: CrudService<Location>,
+    private errorHandler: ErrorHandlerService,
     private formBuilder: FormBuilder,
     public authService: AuthService) { }
 
@@ -46,8 +52,12 @@ export class LocationCreateComponent  {
     // var location = new Location;
     // var location = this.locationForm.value as Location;
     // window.console.log(location);
+    
       this.crudService.create(this.locationForm.value as Location).then(() => {
         this.submitted = true;
+      }).catch((error:any)=>{
+        this.errorHandler.handleError(error);
+        this.errorMessage = error.message;
       });
   }
 
