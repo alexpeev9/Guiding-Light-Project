@@ -11,7 +11,7 @@ import { ErrorHandlerService } from 'src/app/services/error-handler.service';
   templateUrl: './location-create.component.html',
 })
 
-export class LocationCreateComponent  {
+export class LocationCreateComponent {
 
   @Input() coordX!: number;
   @Input() coordY!: number;
@@ -52,13 +52,13 @@ export class LocationCreateComponent  {
     // var location = new Location;
     // var location = this.locationForm.value as Location;
     // window.console.log(location);
-    
-      this.crudService.create(this.locationForm.value as Location).then(() => {
-        this.submitted = true;
-      }).catch((error:any)=>{
-        this.errorHandler.handleError(error);
-        this.errorMessage = error.message;
-      });
+
+    this.crudService.create(this.locationForm.value as Location).then(() => {
+      this.submitted = true;
+    }).catch((error: any) => {
+      this.errorHandler.handleError(error);
+      this.errorMessage = error.message;
+    });
   }
 
   mouseClick(event: YaReadyEvent<ymaps.Map>): void {
