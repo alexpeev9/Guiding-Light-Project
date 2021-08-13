@@ -1,12 +1,12 @@
 <div class="justify-content-center d-flex" *ngIf="this.locationService.isLoaded">
   <form [formGroup]="locationForm" class="submit-form w-75 align-items-center">
     <div class="row">
-      <div class="form-group col-6" >
+      <div class="form-group col-6">
         <label for="title">Title</label>
         <input type="text" formControlName="title" class="form-control" id="title" placeholder="Enter title"
           [ngClass]="{ 'is-invalid': form.title.errors,'w-100':true }" />
       </div>
-      
+
       <div class="form-group col-6">
         <label for="address">Address</label>
         <input type="text" formControlName="address" class="form-control" id="address" placeholder="Enter address"
@@ -16,8 +16,8 @@
 
     <div class="form-group pt-1">
       <label for="description">Description</label>
-      <textarea  type="text" formControlName="description" rows="5" class="form-control" id="description" placeholder="Enter Description"
-        [ngClass]="{ 'is-invalid': form.description.errors,'w-100':true }"></textarea>
+      <textarea type="text" formControlName="description" rows="5" class="form-control" id="description"
+        placeholder="Enter Description" [ngClass]="{ 'is-invalid': form.description.errors,'w-100':true }"></textarea>
     </div>
     <div class="form-group py-2">
       <label for="picture">Picture URL</label>
@@ -26,18 +26,24 @@
     </div>
     <div class="justify-content-center d-flex">
       <img *ngIf="!form.picture.errors" style="width:50%;height:500px" [src]="this.form.picture.value">
-       <div style="width:50%;height:500px">
-        <ya-map [center]="[this.locationService.location?.coordX!,this.locationService.location?.coordY!]" [zoom]="7" (ready)="mouseClick($event)">
-          <ya-placemark [geometry]="[[(this.locationService.location?.coordX!)],[(this.locationService.location?.coordY!)]]">
+      <div style="width:50%;height:500px">
+        <ya-map [center]="[this.locationService.location?.coordX!,this.locationService.location?.coordY!]" [zoom]="7"
+          (ready)="mouseClick($event)">
+          <ya-placemark
+            [geometry]="[[(this.locationService.location?.coordX!)],[(this.locationService.location?.coordY!)]]">
           </ya-placemark>
         </ya-map>
       </div>
     </div>
     <div class="justify-content-center d-flex p-3 align-items-center">
       <div class="form-group">
-        <button class="btn btn-success" [disabled]="locationForm.invalid" (click)="onSubmit()"> Update Location </button>
+        <button class="btn btn-success" [disabled]="locationForm.invalid" (click)="onSubmit()"> Update Location
+        </button>
       </div>
-      <button class="btn btn-danger ml-5" type="button" (click)="deleteLocation()" >Delete Location</button>
+      <button class="btn btn-danger ml-5" type="button" (click)="deleteLocation()">Delete Location</button>
     </div>
   </form>
+</div>
+<div class="d-flex flex-column align-items-center justify-content-center h-100" *ngIf="!this.locationService.isLoaded">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>

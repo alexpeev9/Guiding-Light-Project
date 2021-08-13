@@ -25,6 +25,9 @@ import { LocationService } from './services/location/location.service';
 import { RedirectService } from './services/redirect.service';
 import { CrudService } from './services/crud.service';
 import { ArchwizardModule } from 'angular-archwizard';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const mapConfig: YaConfig = {
   apikey: environment.yandexKey,
@@ -43,7 +46,7 @@ const mapConfig: YaConfig = {
     ErrorNotFoundComponent,
     ErrorInternalServerComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
     ],
   imports: [
     BrowserModule,
@@ -54,11 +57,14 @@ const mapConfig: YaConfig = {
     AngularYandexMapsModule.forRoot(mapConfig),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule
   ],
   providers: [AuthService,LocationService,RedirectService,CrudService],
   bootstrap: [AppComponent],
   schemas: [
-        // CUSTOM_ELEMENTS_SCHEMA,
+        CUSTOM_ELEMENTS_SCHEMA,
         // NO_ERRORS_SCHEMA
       ]
 })

@@ -1,19 +1,16 @@
-import { ChangeDetectionStrategy, Component} from '@angular/core';
-import { Location } from 'src/app/models/location.model';
+import { Component} from '@angular/core';
 import { YaReadyEvent } from 'angular8-yandex-maps';
-import { Router } from '@angular/router';
 import { LocationsService } from 'src/app/services/location/locations.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent {
   
   map!: ymaps.Map;
 
-  constructor(public locationsService: LocationsService,private router: Router) {
+  constructor(public locationsService: LocationsService) {
   }
 
   onMapReady(event: YaReadyEvent<ymaps.Map>): void {
