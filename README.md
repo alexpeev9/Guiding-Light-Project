@@ -85,6 +85,7 @@ People can register on this site by clicking on the Register button on the Navig
 ![Login-page]
 They login page has the same validations and will not allow us to login if we don't enter valid username and password. If we don't have an account we can click the Register button which will redirect us to the register page.
 ![login-validation]
+ <br />
 Here is an example of where the error message will show up.
 #### Create
 ![create-location-1]
@@ -108,9 +109,11 @@ If we try to go to non-existing route **( /cats )** or try to edit/update a not 
 **/location-details/random** our site will redirect us to */404*. There is also an error view for */500* with even cuter cat but i hope you never see this cat. If you still want to see it you can go to */500*.
 ### Rules of firebase
 ![new-rules] 
+ <br />
 We can see that our users will be able to create/update/delete a location if they are logged in.
 If we want our site to be logged in only by admins or just prevent other users from Creating Locations we can set the rules to this.
 ![old-rules]
+ <br />
 The red lines are ids of admin users. Also type all the ids on one row.
 
 <!-- LICENSE -->
