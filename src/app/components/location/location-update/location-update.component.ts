@@ -26,7 +26,7 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
     return this.errorMessage;
   }
   errorMessage!: string;
-  
+
   id!: string;
   isSubmitted: boolean = false;
 
@@ -48,9 +48,9 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
     description: ['', Validators.required],
     address: ['', Validators.required],
     picture: ['', Validators.required],
-    author: [undefined,Validators.required],
-    coordX: [undefined,Validators.required],
-    coordY: [undefined,Validators.required]
+    author: [undefined, Validators.required],
+    coordX: [undefined, Validators.required],
+    coordY: [undefined, Validators.required]
   });
 
   valuechange(value: any) {
@@ -59,7 +59,7 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.url[1].toString();
-    this.locationService.retrieveLocationAsForm(this.id, this.locationForm,this.coordX,this.coordY);
+    this.locationService.retrieveLocationAsForm(this.id, this.locationForm, this.coordX, this.coordY);
   }
 
   mouseClick(event: YaReadyEvent<ymaps.Map>): void {
@@ -69,8 +69,6 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
       this.locationService.location.coordX = coords[0];
       this.locationService.location.coordY = coords[1];
       this.cdr.detectChanges();
-      // window.console.log(coords[0]);
-      // window.console.log(coords[1]);
       this.form.coordX.patchValue(coords[0]);
       this.form.coordY.patchValue(coords[1]);
     })
@@ -84,9 +82,9 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
     this.form.coordX.setValue(this.locationService.location.coordX);
     this.form.coordY.setValue(this.locationService.location.coordY);
 
-    this.crudService.update(this.id, this.locationForm.value as Location).then(()=>{
-    this.redirectService.redirectToDetailsPage(this.id);
-    }).catch((error)=>{
+    this.crudService.update(this.id, this.locationForm.value as Location).then(() => {
+      this.redirectService.redirectToDetailsPage(this.id);
+    }).catch((error) => {
       this.errorHandler.handleError(error);
       this.errorMessage = error.message;
     });
@@ -102,13 +100,15 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
       if (locationAuthor?.split(' ').includes(currentUser)) {
         return locationAuthor;
       }
-      var newList = locationAuthor += `\n ${currentUser}`;
-      return newList;
+      else {
+        var newList = locationAuthor += `\n ${currentUser}`;
+        return newList;
+      }
     }
   }
 
   deleteLocation(): void {
-    this.crudService.delete(this.id).then(()=>{
+    this.crudService.delete(this.id).then(() => {
       this.router.navigate(['']);
     }).catch(error => {
       this.errorHandler.handleError(error);
@@ -116,8 +116,8 @@ export class LocationUpdateComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void{
+  ngOnDestroy(): void {
     this.locationService.isLoaded = false;
-    this.locationService.location = {}; 
+    this.locationService.location = {};
   }
 }

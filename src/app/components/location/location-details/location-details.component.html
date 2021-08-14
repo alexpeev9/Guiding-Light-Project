@@ -23,7 +23,7 @@
       <img style="height:800px" [src]="this.locationService.location?.picture" alt="current picture" class="rounded">
       <div class="project-info-box mt-2 mb-0" *ngIf="this.authService.isLoggedIn">
         <p class="mb-0">
-          <span class="fw-bold mr-10 va-middle hide-mobile">Users working on this: </span>
+          <span class="fw-bold mr-10 va-middle hide-mobile">Authors working history: </span>
           <span>{{this.locationService.location?.author}}</span>
         </p>
         <p class="d-flex justify-content-center mb-0 py-2">
