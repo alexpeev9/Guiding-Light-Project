@@ -46,7 +46,7 @@
 <!-- ABOUT THE PROJECT -->
 ### About The Project
 
-![Location List Page][locaiton-list]
+![location-list]
 
 This site is intended for people that are looking for interesting landmarks that are not usually displayed on other sites. People can learn different things about each location. They can also see a map with coordinates so they can find it easier.
 * In this version of the project, people can log in the site and create different locations. Users can Create/Update/Delete Location. When users are logged in they can see who made the project and which users have edited the project chronologically.
@@ -59,7 +59,7 @@ This site is intended for people that are looking for interesting landmarks that
 * [Yandex Map](https://yandex.com/dev/maps/)
 * [Bootstrap](https://getbootstrap.com/)
 * [Angular Archwizard](https://www.npmjs.com/package/angular-archwizard)
-* [Bootstrap](https://getbootstrap.com/)
+* [SASS](https://sass-lang.com/)
 
 
 <!-- USAGE EXAMPLES -->
