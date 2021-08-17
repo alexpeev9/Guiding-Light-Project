@@ -31,7 +31,7 @@ export class HomeComponent {
         properties: { 
           balloonContentHeader: `${l.title}`,
           balloonContentBody: `<img style="width:190px;height:200px" src=${l.picture}>`,
-          balloonContentFooter: `<a href="location-details/${l.id}" ><button class="btn btn-success">Details</button></a>`,
+          // balloonContentFooter: `<a href="location-details/${l.id}" ><button class="btn btn-success">Details</button></a>`, // Won't work for Production
           hintContent: `${l.title}`
         },
       });

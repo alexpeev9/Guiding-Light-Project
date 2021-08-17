@@ -8,8 +8,8 @@
   <p align="center">
     Angular Course Work Project
     <br />
+    <a href="https://guiding-light-d0c0d.web.app"> Live Demo of Site</a>
     <br />
-    <a href="https://github.com/alexpeev9/Guiding-Light-Project/issues">Report Bug</a>
   </p>
 </p>
 

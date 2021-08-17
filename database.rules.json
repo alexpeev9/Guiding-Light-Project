@@ -1,6 +1,15 @@
 {
   "rules": {
     ".read": true,
-    ".write": true
+    "users": {
+      "$uid": {
+        ".write": "false"
+      }
+    },
+    "locations": {
+      "$uid": {
+        ".write": "auth!= null"
+      }
+    }
   }
 }
